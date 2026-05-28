@@ -120,4 +120,4 @@ jobs:
           gh release create latest dist/* \
             --title "Latest Build" \
             --notes-file notes.md \
-            --prerelease
+            --latest
