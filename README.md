@@ -44,7 +44,7 @@ code --install-extension pseudocode-lang-*.vsix
 
 ### Installation aus dem Release (ohne selbst zu kompilieren)
 
-Unter [github.com/danycagiva/Pseudocode/releases](https://github.com/danycagiva/Pseudocode/releases) gibt es bei jedem Push vorkompilierte Binaries – kein CMake, kein C++-Compiler nötig.
+Unter [github.com/danycagiva/Pseudocode/releases](https://github.com/danycagiva/Pseudocode/releases/latest) gibt es bei jedem Push vorkompilierte Binaries.
 
 **Linux**
 ```bash
@@ -62,7 +62,16 @@ sudo mv pseudocode /usr/local/bin/pseudocode
 ```
 
 **Windows**  
-`pseudocode-windows.exe` aus dem Release herunterladen, in einen Ordner legen (z. B. `C:\Tools`) und diesen Ordner zur `PATH`-Umgebungsvariable hinzufügen. Danach funktioniert `pseudocode datei.pseudo` in der Eingabeaufforderung.
+`pseudocode-windows.exe` aus dem Release herunterladen und umbenennen in `pseudocode.exe`. Dann in einen festen Ordner legen, z. B. `C:\Tools`.
+
+Danach den Ordner zur PATH-Umgebungsvariable hinzufügen:
+1. `Win + R` → `sysdm.cpl` → Enter
+2. Reiter **Erweitert** → **Umgebungsvariablen**
+3. Unter *Systemvariablen* die Variable **Path** auswählen → **Bearbeiten**
+4. **Neu** → `C:\Tools` eingeben → OK
+5. Alle offenen Eingabeaufforderungen schließen und neu öffnen
+
+Danach funktioniert `pseudocode datei.pseudo` in der Eingabeaufforderung und in VS Code.
 
 **VS Code Extension**  
 Die Datei `pseudocode-lang-*.vsix` aus dem Release herunterladen, dann:
