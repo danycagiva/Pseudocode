@@ -1,0 +1,25 @@
+// Funktionen in PseudoCode
+
+funktion addiere(a, b)
+    rueckgabe a + b
+endefunktion
+
+funktion quadrat(x)
+    rueckgabe x * x
+endefunktion
+
+funktion fakultaet(n)
+    wenn n <= 1 dann
+        rueckgabe 1
+    sonst
+        rueckgabe n * fakultaet(n - 1)
+    endewenn
+endefunktion
+
+// Aufrufe
+ergebnis := addiere(3, 4)
+ausgabe(ergebnis)
+
+ausgabe(quadrat(5))
+
+ausgabe(fakultaet(6))

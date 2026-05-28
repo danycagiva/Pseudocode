@@ -1,0 +1,16 @@
+// Fibonacci-Zahlen
+
+funktion fibonacci(n)
+    wenn n <= 0 dann
+        rueckgabe 0
+    sonstwenn n = 1 dann
+        rueckgabe 1
+    sonst
+        rueckgabe fibonacci(n - 1) + fibonacci(n - 2)
+    endewenn
+endefunktion
+
+// Erste 10 Fibonacci-Zahlen ausgeben
+fuer i := 0; i < 10; i++ tue
+    ausgabe(fibonacci(i))
+endefuer

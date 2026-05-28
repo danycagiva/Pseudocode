@@ -1,0 +1,6 @@
+// Klassisches erstes Programm
+ausgabe("Hallo, Welt!")
+
+// Variablen und Ausgabe
+name := "PseudoCode"
+ausgabe(name)

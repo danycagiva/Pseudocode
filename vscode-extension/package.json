@@ -1,0 +1,71 @@
+{
+  "name": "pseudocode-lang",
+  "displayName": "PseudoCode",
+  "description": "Deutsche Programmiersprache PseudoCode – Syntax-Highlighting, Fehleranzeige und Ausführen-Schaltfläche",
+  "version": "0.2.0",
+  "publisher": "pseudocode",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Programming Languages"],
+  "activationEvents": ["onLanguage:pseudocode"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "pseudocode",
+        "aliases": ["PseudoCode", "pseudocode"],
+        "extensions": [".pseudo", ".ps"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "pseudocode",
+        "scopeName": "source.pseudocode",
+        "path": "./syntaxes/pseudocode.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "pseudocode.ausfuehren",
+        "title": "PseudoCode: Datei ausführen",
+        "icon": "$(play)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "pseudocode.ausfuehren",
+          "when": "resourceLangId == pseudocode",
+          "group": "navigation"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "pseudocode.ausfuehren",
+        "key": "f5",
+        "when": "resourceLangId == pseudocode && editorFocus"
+      }
+    ],
+    "configuration": {
+      "title": "PseudoCode",
+      "properties": {
+        "pseudocode.interpreterPfad": {
+          "type": "string",
+          "default": "pseudocode",
+          "description": "Pfad zum PseudoCode-Interpreter (z.B. /usr/local/bin/pseudocode)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.0.0"
+  }
+}

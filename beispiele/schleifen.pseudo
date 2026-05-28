@@ -1,0 +1,27 @@
+// Wenn / Sonstwenn / Sonst
+x := 7
+
+wenn x > 10 dann
+    ausgabe("x ist groesser als 10")
+sonstwenn x = 7 dann
+    ausgabe("x ist genau 7")
+sonst
+    ausgabe("x ist kleiner als 7")
+endewenn
+
+// Solange-Schleife: Countdown
+i := 5
+solange i > 0 tue
+    ausgabe(i)
+    i := i - 1
+endesolange
+
+// Für-Schleife (C-Stil)
+fuer j := 1; j <= 3; j++ tue
+    ausgabe(j)
+endefuer
+
+// Bereichsschleife mit Schrittweite
+fuer k von 0 bis 10 schrittweite 3 tue
+    ausgabe(k)
+endefuer

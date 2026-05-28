@@ -1,0 +1,97 @@
+// ===== Listen-Demo =====
+
+// Liste erstellen
+zahlen := liste(10, 3, 7, 1, 5)
+ausgabe("Original: " + text(zahlen))
+
+// Laenge
+ausgabe("Laenge: " + text(laenge(zahlen)))
+
+// Element lesen
+ausgabe("Erstes Element: " + text(zahlen[0]))
+ausgabe("Letztes Element: " + text(zahlen[laenge(zahlen) - 1]))
+
+// Element schreiben
+zahlen[0] := 99
+ausgabe("Nach Aenderung: " + text(zahlen))
+
+// hinzufuegen
+zahlen.hinzufuegen(42)
+ausgabe("Nach hinzufuegen: " + text(zahlen))
+
+// einfuegen (Index, Wert)
+zahlen.einfuegen(1, 100)
+ausgabe("Nach einfuegen an Index 1: " + text(zahlen))
+
+// entfernen (Index)
+zahlen.entfernen(0)
+ausgabe("Nach entfernen von Index 0: " + text(zahlen))
+
+// pop
+letzter := zahlen.pop()
+ausgabe("pop() ergab: " + text(letzter))
+ausgabe("Nach pop: " + text(zahlen))
+
+// sortieren
+zahlen.sortieren()
+ausgabe("Sortiert: " + text(zahlen))
+
+// umkehren
+zahlen.umkehren()
+ausgabe("Umgekehrt: " + text(zahlen))
+
+// Schleife ueber Liste
+ausgabe("Alle Elemente:")
+i := 0
+solange i < laenge(zahlen) tue
+    ausgabe("  [" + text(i) + "] = " + text(zahlen[i]))
+    i := i + 1
+endesolange
+
+// Leere Liste mit Texten
+leer := liste()
+leer.hinzufuegen("Hallo")
+leer.hinzufuegen("Welt")
+ausgabe("Textliste: " + text(leer))
+
+// ===== 2D-Array (Liste von Listen) =====
+ausgabe("--- 2D-Array ---")
+
+// 3x3-Matrix erstellen
+matrix := liste(
+    liste(1, 2, 3),
+    liste(4, 5, 6),
+    liste(7, 8, 9)
+)
+ausgabe("Matrix: " + text(matrix))
+
+// Einzelnes Element lesen: Zeile 1, Spalte 2
+ausgabe("matrix[1][2] = " + text(matrix[1][2]))
+
+// Einzelnes Element schreiben
+matrix[0][0] := 99
+ausgabe("Nach matrix[0][0] := 99: " + text(matrix))
+
+// Matrix zeilenweise ausgeben
+ausgabe("Zeilenweise:")
+z := 0
+solange z < laenge(matrix) tue
+    ausgabe(text(matrix[z]))
+    z := z + 1
+endesolange
+
+// Dynamisch aufgebaute 2x4-Matrix
+ausgabe("--- Dynamische Matrix ---")
+tabelle := liste()
+fuer r von 0 bis 2 schrittweite 1 tue
+    reihe := liste()
+    fuer c von 0 bis 4 schrittweite 1 tue
+        reihe.hinzufuegen(r * 10 + c)
+    endefuer
+    tabelle.hinzufuegen(reihe)
+endefuer
+ausgabe(text(tabelle))
+
+// Benutzereingabe
+name := eingabe("Wie heisst du? ")
+ausgabe("Hallo, " + name + "!")

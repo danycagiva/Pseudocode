@@ -1,0 +1,33 @@
+{
+  "comments": {
+    "lineComment": "//"
+  },
+  "brackets": [
+    ["(", ")"],
+    ["[", "]"]
+  ],
+  "autoClosingPairs": [
+    { "open": "(", "close": ")" },
+    { "open": "[", "close": "]" },
+    { "open": "\"", "close": "\"" }
+  ],
+  "surroundingPairs": [
+    ["(", ")"],
+    ["[", "]"],
+    ["\"", "\""]
+  ],
+  "indentationRules": {
+    "increaseIndentPattern": "\\b(dann|tue|sonst)\\s*(\\/\\/.*)?$|^\\s*funktion\\b",
+    "decreaseIndentPattern": "^\\s*(endewenn|endesolange|endefuer|endefunktion|ende|sonstwenn|sonst)\\b"
+  },
+  "onEnterRules": [
+    {
+      "beforeText": "\\b(dann|tue|sonst)\\s*(\\/\\/.*)?$",
+      "action": { "indent": "indent" }
+    },
+    {
+      "beforeText": "^\\s*funktion\\b.*\\)\\s*(\\/\\/.*)?$",
+      "action": { "indent": "indent" }
+    }
+  ]
+}
