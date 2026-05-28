@@ -98,6 +98,20 @@ jobs:
           SHORT_SHA=$(git rev-parse --short HEAD)
           DATE=$(date -u +'%d.%m.%Y %H:%M UTC')
 
+          cat > notes.md << NOTES
+          **Commit:** \`${SHORT_SHA}\` | **Datum:** ${DATE}
+
+          Automatischer Build nach jedem Push auf \`main\`.
+
+          ### Downloads
+          | Datei | Plattform |
+          |---|---|
+          | \`pseudocode-linux\` | Linux (x86_64) |
+          | \`pseudocode-macos\` | macOS (ARM64 / Apple Silicon) |
+          | \`pseudocode-windows.exe\` | Windows (x86_64) |
+          | \`pseudocode-lang-*.vsix\` | VS Code Extension |
+          NOTES
+
           # Alten latest-Release und Tag entfernen (falls vorhanden)
           gh release delete latest --yes 2>/dev/null || true
           git tag -f latest
@@ -105,15 +119,5 @@ jobs:
 
           gh release create latest dist/* \
             --title "Latest Build" \
-            --notes "**Commit:** \`${SHORT_SHA}\`  |  **Datum:** ${DATE}
-
-Automatischer Build nach jedem Push auf \`main\`.
-
-### Downloads
-| Datei | Plattform |
-|---|---|
-| \`pseudocode-linux\` | Linux (x86_64) |
-| \`pseudocode-macos\` | macOS (ARM64 / Apple Silicon) |
-| \`pseudocode-windows.exe\` | Windows (x86_64) |
-| \`pseudocode-lang-*.vsix\` | VS Code Extension |" \
+            --notes-file notes.md \
             --prerelease
