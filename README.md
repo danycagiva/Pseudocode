@@ -26,8 +26,8 @@ Aufruf im Terminal: pseudocode datei.pseudo
 ### Bauen & Installieren
 
 ```bash
-git clone https://github.com/dein-nutzername/pseudocode-lang.git
-cd pseudocode-lang
+git clone https://github.com/danycagiva/Pseudocode.git
+cd Pseudocode
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 sudo cmake --install build   # → /usr/local/bin/pseudocode
@@ -41,6 +41,35 @@ npm install
 npx vsce package --no-dependencies
 code --install-extension pseudocode-lang-*.vsix
 ```
+
+### Installation aus dem Release (ohne selbst zu kompilieren)
+
+Unter [github.com/danycagiva/Pseudocode/releases](https://github.com/danycagiva/Pseudocode/releases) gibt es bei jedem Push vorkompilierte Binaries – kein CMake, kein C++-Compiler nötig.
+
+**Linux**
+```bash
+# Binary herunterladen und ausführbar machen
+wget https://github.com/danycagiva/Pseudocode/releases/latest/download/pseudocode-linux
+chmod +x pseudocode-linux
+sudo mv pseudocode-linux /usr/local/bin/pseudocode
+```
+
+**macOS**
+```bash
+curl -L https://github.com/danycagiva/Pseudocode/releases/latest/download/pseudocode-macos -o pseudocode
+chmod +x pseudocode
+sudo mv pseudocode /usr/local/bin/pseudocode
+```
+
+**Windows**  
+`pseudocode-windows.exe` aus dem Release herunterladen, in einen Ordner legen (z. B. `C:\Tools`) und diesen Ordner zur `PATH`-Umgebungsvariable hinzufügen. Danach funktioniert `pseudocode datei.pseudo` in der Eingabeaufforderung.
+
+**VS Code Extension**  
+Die Datei `pseudocode-lang-*.vsix` aus dem Release herunterladen, dann:
+```bash
+code --install-extension pseudocode-lang-*.vsix
+```
+Oder in VS Code: `Strg+Shift+P` → *Extensions: Install from VSIX...*
 
 ---
 
