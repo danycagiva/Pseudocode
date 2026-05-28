@@ -1,0 +1,119 @@
+name: Build & Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  # ──────────────────────────────────────────────
+  # C++ Interpreter für alle drei Plattformen
+  # ──────────────────────────────────────────────
+  build-interpreter:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact: pseudocode-linux
+          - os: macos-latest
+            artifact: pseudocode-macos
+          - os: windows-latest
+            artifact: pseudocode-windows.exe
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --config Release
+
+      - name: Binary bereitstellen (Linux / macOS)
+        if: runner.os != 'Windows'
+        run: cp build/pseudocode ${{ matrix.artifact }}
+
+      - name: Binary bereitstellen (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          if (Test-Path "build/Release/pseudocode.exe") {
+            Copy-Item "build/Release/pseudocode.exe" "${{ matrix.artifact }}"
+          } else {
+            Copy-Item "build/pseudocode.exe" "${{ matrix.artifact }}"
+          }
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: ${{ matrix.artifact }}
+
+  # ──────────────────────────────────────────────
+  # VS Code Extension (.vsix)
+  # ──────────────────────────────────────────────
+  build-extension:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: VSIX bauen
+        working-directory: vscode-extension
+        run: |
+          npm ci
+          npx vsce package --no-dependencies
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vscode-extension
+          path: vscode-extension/*.vsix
+
+  # ──────────────────────────────────────────────
+  # Rolling Release „latest" auf GitHub erstellen
+  # ──────────────────────────────────────────────
+  release:
+    needs: [build-interpreter, build-extension]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Alle Artefakte herunterladen
+        uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+          path: dist
+
+      - name: Release aktualisieren
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          DATE=$(date -u +'%d.%m.%Y %H:%M UTC')
+
+          # Alten latest-Release und Tag entfernen (falls vorhanden)
+          gh release delete latest --yes 2>/dev/null || true
+          git tag -f latest
+          git push origin latest --force
+
+          gh release create latest dist/* \
+            --title "Latest Build" \
+            --notes "**Commit:** \`${SHORT_SHA}\`  |  **Datum:** ${DATE}
+
+Automatischer Build nach jedem Push auf \`main\`.
+
+### Downloads
+| Datei | Plattform |
+|---|---|
+| \`pseudocode-linux\` | Linux (x86_64) |
+| \`pseudocode-macos\` | macOS (ARM64 / Apple Silicon) |
+| \`pseudocode-windows.exe\` | Windows (x86_64) |
+| \`pseudocode-lang-*.vsix\` | VS Code Extension |" \
+            --prerelease
